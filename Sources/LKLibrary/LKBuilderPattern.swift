@@ -75,7 +75,7 @@ extension LKBuilder {
     /**
      Set the value for a field, return self for chaining purposes
     */
-    func set(field: FieldType) -> Self {
+    public func set(field: FieldType) -> Self {
         fields.update(with: field)
         return self
     }
@@ -83,7 +83,7 @@ extension LKBuilder {
     /**
      Get the value for a field from the set of fields, because types are known in concrete implementation, the value returned can then be implicitly cast to the correct type.
     */
-    func get(field: FieldType) -> Any? {
+    public func get(field: FieldType) -> Any? {
         let index = fields.firstIndex(of: field)!
         let builderField = fields[index]
         return builderField.value
@@ -106,7 +106,7 @@ extension LKBuilder {
     /**
      If this Builder requires any comparisons, this method can be overridden in concrete implementation
     */
-    func compare(field: FieldType) throws {}
+    public func compare(field: FieldType) throws {}
     
     private func compareAll() throws {
         for field in fields {
@@ -117,14 +117,14 @@ extension LKBuilder {
     /**
      Build the model, ignore any errors, but return nil for an invalid Model
     */
-    func build() -> Model? {
+    public func build() -> Model? {
         return try? buildWithErrors()
     }
     
     /**
      Build the model, throw errors for the caller to act on
     */
-    func buildWithErrors() throws -> Model {
+    public func buildWithErrors() throws -> Model {
         try checkRequired()
         try validate()
         try compareAll()
