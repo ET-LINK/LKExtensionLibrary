@@ -86,6 +86,7 @@ public extension LKEx where Base == Date {
     /// 从日期获取 星期
     var weekday: String {
         jk_formatter.dateFormat = "EEEE"
+        jk_formatter.timeZone = TimeZone.autoupdatingCurrent
         return jk_formatter.string(from: self.base)
     }
     
@@ -100,9 +101,10 @@ public extension LKEx where Base == Date {
     }
     
     // MARK: 1.13、从日期获取 月(英文)
-    /// 从日期获取 月(英文)
+    /// 从日期获取 当前地区的月(英文)
     var monthAsString: String {
         jk_formatter.dateFormat = "MMMM"
+        jk_formatter.timeZone = TimeZone.autoupdatingCurrent
         return jk_formatter.string(from: self.base)
     }
 }
@@ -133,6 +135,8 @@ public extension LKEx where Base == Date {
         jk_formatter.dateFormat = format
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
+        } else {
+            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
         }
         // 按照dateFormat把Date转化为String
         return jk_formatter.string(from: date)
@@ -162,33 +166,7 @@ public extension LKEx where Base == Date {
         let date = Date(timeIntervalSince1970: TimeInterval(timestampValue))
         return date
     }
-    
-    /// 根据本地时区转换
-    private static func getNowDateFromatAnDate(_ anyDate: Date?) -> Date? {
-        // 设置源日期时区
-        let sourceTimeZone = NSTimeZone(abbreviation: "UTC")
-        // 或GMT
-        // 设置转换后的目标日期时区
-        let destinationTimeZone = NSTimeZone.local as NSTimeZone
-        // 得到源日期与世界标准时间的偏移量
-        var sourceGMTOffset: Int? = nil
-        if let aDate = anyDate {
-            sourceGMTOffset = sourceTimeZone?.secondsFromGMT(for: aDate)
-        }
-        // 目标日期与本地时区的偏移量
-        var destinationGMTOffset: Int? = nil
-        if let aDate = anyDate {
-            destinationGMTOffset = destinationTimeZone.secondsFromGMT(for: aDate)
-        }
-        // 得到时间偏移量的差值
-        let interval = TimeInterval((destinationGMTOffset ?? 0) - (sourceGMTOffset ?? 0))
-        // 转为现在时间
-        var destinationDateNow: Date? = nil
-        if let aDate = anyDate {
-            destinationDateNow = Date(timeInterval: interval, since: aDate)
-        }
-        return destinationDateNow
-    }
+
     
     // MARK: 2.3、Date 转换为相应格式的时间字符串，如 Date 转为 2020-10-28
     /// Date 转换为相应格式的字符串，如 Date 转为 2020-10-28
@@ -213,8 +191,13 @@ public extension LKEx where Base == Date {
     ///   - formatter: 时间格式，如：yyyy-MM-dd HH:mm:ss
     ///   - timestampType: 返回的时间戳类型，默认是秒 10 为的时间戳字符串
     /// - Returns: 返回转化后的时间戳
-    static func formatterTimeStringToTimestamp(timesString: String, formatter: String, timestampType: JKTimestampType = .second) -> String {
+    static func formatterTimeStringToTimestamp(timesString: String, formatter: String, timestampType: JKTimestampType = .second, utcZone = false) -> String {
         jk_formatter.dateFormat = formatter
+        if utcZone {
+            jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
+        } else {
+            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
+        }
         guard let date = jk_formatter.date(from: timesString) else {
             #if DEBUG
             fatalError("时间有问题")
@@ -234,8 +217,13 @@ public extension LKEx where Base == Date {
     ///   - timesString: 时间字符串
     ///   - formatter: 格式
     /// - Returns: 返回 Date
-    static func formatterTimeStringToDate(timesString: String, formatter: String) -> Date {
+    static func formatterTimeStringToDate(timesString: String, formatter: String, utcZone: Bool = false) -> Date {
         jk_formatter.dateFormat = formatter
+        if utcZone {
+            jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
+        } else {
+            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
+        }
         guard let date = jk_formatter.date(from: timesString) else {
             #if DEBUG
             fatalError("时间有问题")
