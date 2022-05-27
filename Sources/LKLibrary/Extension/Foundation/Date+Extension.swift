@@ -191,7 +191,7 @@ public extension LKEx where Base == Date {
     ///   - formatter: 时间格式，如：yyyy-MM-dd HH:mm:ss
     ///   - timestampType: 返回的时间戳类型，默认是秒 10 为的时间戳字符串
     /// - Returns: 返回转化后的时间戳
-    static func formatterTimeStringToTimestamp(timesString: String, formatter: String, timestampType: JKTimestampType = .second, utcZone = false) -> String {
+    static func formatterTimeStringToTimestamp(timesString: String, formatter: String, timestampType: JKTimestampType = .second, utcZone: Bool = false) -> String {
         jk_formatter.dateFormat = formatter
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
