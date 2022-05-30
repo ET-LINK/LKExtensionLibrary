@@ -87,7 +87,7 @@ public extension LKEx where Base: UIButton {
         switch lineType {
         case let .color(color):
             color.setStroke()
-            path.lineWidth = jk_kPixel
+            path.lineWidth = lk_kPixel
             path.stroke()
         default:
             break

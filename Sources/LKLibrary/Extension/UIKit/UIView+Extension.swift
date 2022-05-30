@@ -37,7 +37,7 @@ let isIiPhoneXSMax = (CGSize(width: 1242, height: 2688).equalTo(UIScreen.main.cu
 // MARK: 1.1、设备型号
 /// 设备型号
 /// - Returns: 设备型号信息
-public func jk_deviceModel() -> String {
+public func lk_deviceModel() -> String {
     var systemInfo = utsname()
     uname(&systemInfo)
     let size = Int(_SYS_NAMELEN)
@@ -52,110 +52,110 @@ public func jk_deviceModel() -> String {
 // MARK: 1.2、是不是 iPhone X
 /// 是不是 iPhone X
 /// - Returns: bool
-public func jk_isIphoneX() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 812
+public func lk_isIphoneX() -> Bool {
+    return lk_isIphone() && lk_kScreenH == 812
 }
 
 // MARK: 1.3、是不是 iPhone XS
 /// 是不是 iPhone XS
 /// - Returns: description
-public func jk_isXs() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 812
+public func lk_isXs() -> Bool {
+    return lk_isIphone() && lk_kScreenH == 812
 }
 
 // MARK: 1.4、是不是 iPhone XR
 /// 是不是 iPhone XR
 /// - Returns: description
-public func jk_isXR() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 896 && jk_kScreenW == 414
+public func lk_isXR() -> Bool {
+    return lk_isIphone() && lk_kScreenH == 896 && lk_kScreenW == 414
 }
 
 // MARK: 1.5、是不是 iPhone XsMax
 /// 是不是 iPhone XsMax
 /// - Returns: description
-public func jk_isXsMax() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 896 && jk_kScreenW == 414
+public func lk_isXsMax() -> Bool {
+    return lk_isIphone() && lk_kScreenH == 896 && lk_kScreenW == 414
 }
 
 // MARK: 1.6、是不是 iPhone
 /// 判断是不是 iPhone
 /// - Returns: bool
-public func jk_isIphone() -> Bool {
+public func lk_isIphone() -> Bool {
     return UIDevice.current.userInterfaceIdiom == .phone
 }
 
 // MARK: 1.7、判断是否是 pad
 /// 判断是否是 pad
 /// - Returns: bool
-public func jk_isPadDevice() -> Bool {
+public func lk_isPadDevice() -> Bool {
     return UIDevice.current.userInterfaceIdiom == .pad
 }
 
 // MARK: 1.8、判断是不是 4 4s
 /// 4 4s
 /// - Returns: description
-public func jk_is4OrLess() -> Bool {
-    return jk_isIphone() && jk_kScreenH < 568
+public func lk_is4OrLess() -> Bool {
+    return lk_isIphone() && lk_kScreenH < 568
 }
 
 // MARK: 1.9、判断是不是 5 5c 5s
 /// 判断是不是 5 5c 5s
 /// - Returns: description
-public func jk_is5() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 568
+public func lk_is5() -> Bool {
+    return lk_isIphone() && lk_kScreenH == 568
 }
 
 // MARK: 1.10、判断是不是 6 6s 7 8
 /// 判断是不是 6 6s 7 8
 /// - Returns: description
-public func jk_is678() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 667
+public func lk_is678() -> Bool {
+    return lk_isIphone() && lk_kScreenH == 667
 }
 
 // MARK: 1.11、判断是不是 6p 7p 8p
 /// 判断是不是 6p 7p 8p
 /// - Returns: description
-public func jk_is678P() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 736
+public func lk_is678P() -> Bool {
+    return lk_isIphone() && lk_kScreenH == 736
 }
 
 // MARK: 1.12、当前设备是不是模拟器
 /// 当前设备是不是模拟器
 /// - Returns: result
-public func jk_isSimulator() -> Bool {
+public func lk_isSimulator() -> Bool {
     return UIDevice.ex.isSimulator()
 }
 
 // MARK: - 二、屏幕尺寸常用的常量
 // MARK: 2.1、屏幕的宽
 /// 屏幕的宽
-public let jk_kScreenW: CGFloat = UIScreen.main.bounds.width
+public let lk_kScreenW: CGFloat = UIScreen.main.bounds.width
 // MARK: 2.2、屏幕的高
 /// 屏幕的高
-public let jk_kScreenH: CGFloat = UIScreen.main.bounds.height
+public let lk_kScreenH: CGFloat = UIScreen.main.bounds.height
 
     
 // MARK: 2.5、屏幕底部Tabbar高度
 /// 屏幕底部Tabbar高度
-public var jk_kTabbarFrameH: CGFloat { return isIPhoneX ? 83 : 49 }
+public var lk_kTabbarFrameH: CGFloat { return isIPhoneX ? 83 : 49 }
 // MARK: 2.6、屏幕底部刘海高度
 /// 屏幕底部刘海高度
-public var jk_kTabbarBottom: CGFloat { return isIPhoneX ? 34 : 0 }
+public var lk_kTabbarBottom: CGFloat { return isIPhoneX ? 34 : 0 }
 // MARK: 2.7、屏幕比例
 /// 屏幕比例
-public let jk_kPixel = 1.0 / UIScreen.main.scale
+public let lk_kPixel = 1.0 / UIScreen.main.scale
 // MARK: 2.8、身份证宽高比
 /// 身份证宽高比
-public let jk_kRatioIDCard: CGFloat = 0.63
+public let lk_kRatioIDCard: CGFloat = 0.63
 // MARK: 2.9、适配比例
 /// 适配比例
-public let jk_scaleIphone = jk_kScreenW / CGFloat(375.0)
+public let lk_scaleIphone = lk_kScreenW / CGFloat(375.0)
 
 // MARK: - 屏幕16:9比例系数下的宽高
 // 宽
-public let jk_kScreenW16_9: CGFloat = jk_kScreenW * 9.0 / 16.0
+public let lk_kScreenW16_9: CGFloat = lk_kScreenW * 9.0 / 16.0
 // 高
-public let jk_kScreenH16_9: CGFloat = jk_kScreenH * 16.0 / 9.0
+public let lk_kScreenH16_9: CGFloat = lk_kScreenH * 16.0 / 9.0
 
 // MARK: - 三、UIView 有关 Frame 的扩展
 public extension LKEx where Base: UIView {
@@ -321,6 +321,18 @@ public extension LKEx where Base: UIView {
             tempOrigin = newValue
             base.frame.origin = tempOrigin
         }
+    }
+    
+    /// 当前view是否在屏幕上
+    var isShowingOnKeyWindow: Bool {
+        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        guard let width = window?.bounds.width, let height = window?.bounds.height else {return true}
+        let viewRect = window?.convert(base.frame, from: base.superview)
+        if let intersects = viewRect?.intersects(CGRect(x: 0, y: 80, width: width, height: height-80.0)) {
+            return intersects
+        }
+        
+        return true
     }
 }
 
