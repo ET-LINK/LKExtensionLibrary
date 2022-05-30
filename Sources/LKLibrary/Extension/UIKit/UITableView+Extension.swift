@@ -69,20 +69,18 @@ public extension LKEx where Base: UITableView {
         return base.dequeueReusableCell(withIdentifier: cellType.className, for: indexPath) as! T
     }
     
-    
     /// 获得当前cell的索引位置
     /// - Parameters:
     ///   - indexPath: 分组中的列
-    ///   - theTable: 表
     /// - Returns: 索引位置
-    class func returnPositionForThisIndexPath(indexPath:IndexPath, insideThisTable theTable:UITableView)->Int{
+    func returnPositionForThisIndexPath(indexPath:IndexPath)->Int{
 
         var i = 0
         var rowCount = 0
 
         while i < indexPath.section {
 
-            rowCount += theTable.numberOfRows(inSection: i)
+            rowCount += base.numberOfRows(inSection: i)
 
             i += 1
         }
@@ -91,6 +89,7 @@ public extension LKEx where Base: UITableView {
 
         return rowCount
     }
+
 }
 
 // MARK: - 二、链式编程
