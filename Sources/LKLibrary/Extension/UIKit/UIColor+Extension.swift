@@ -310,7 +310,7 @@ extension UIColor {
 }
 
 
-extension UIColor {
+public extension UIColor {
     /// 颜色转图片,用于navigationbar的阴影
     /// - Returns: 图片
     func as1ptImage() -> UIImage {
