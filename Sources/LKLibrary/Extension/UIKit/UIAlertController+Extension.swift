@@ -49,6 +49,12 @@ public extension UIAlertController {
     // MARK: 1.4、跳转 UIAlertController
     /// UIAlertController
     func show() {
+        if UIDevice.current.userInterfaceIdiom == .pad && self.preferredStyle == .actionSheet {
+            let popPresenter = self.popoverPresentationController;
+            popPresenter?.permittedArrowDirections = .down
+            popPresenter?.sourceView = self.view;
+            popPresenter?.sourceRect = CGRect(x: self.view.bounds.width/2, y: self.view.bounds.height, width: 0, height: 0)
+        }
         UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController?.present(self, animated: true, completion: nil)
     }
 
