@@ -1969,6 +1969,11 @@ public extension LKEx where Base == String {
     }
 }
 
+public extension LKEx where Base == String {
+    func HexToColor() -> UIColor {
+        return UIColor.hexStringColor(hexString: self.base)
+    }
+}
 
 extension String {
 
