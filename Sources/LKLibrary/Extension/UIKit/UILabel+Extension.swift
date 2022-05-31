@@ -469,3 +469,17 @@ public extension LKEx where Base: UILabel {
         base.attributedText = attributedString
     }
 }
+
+/// 选取字体
+public extension LKEx where Base: UILabel  {
+    private func withTraits(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont {
+        let descriptor = self.base.fontDescriptor
+            .withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))
+        return UIFont(descriptor: descriptor!, size: 0)
+    }
+
+    /// boldItalic 字体
+    func boldItalic() -> UIFont {
+        return withTraits([.traitBold, .traitItalic])
+    }
+}
