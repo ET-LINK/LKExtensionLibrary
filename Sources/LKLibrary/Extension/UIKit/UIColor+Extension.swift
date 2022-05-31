@@ -284,33 +284,7 @@ fileprivate extension UIColor {
     }
 }
 
-// MARK: - 个性化的颜色设置
-extension UIColor {
-    
-    // MARK: 背景灰色
-    /// 背景灰色
-    /// - Returns: 背景灰色
-    static func JKGlobalColor() -> UIColor {
-        return color(r: 240, g: 240, b: 240, alpha: 1)
-    }
-    
-    // MARK: 红色
-    /// 红色
-    /// - Returns: 红色
-    static func JKGlobalRedColor() -> UIColor {
-        return color(r: 245, g: 80, b: 83, alpha: 1.0)
-    }
-    
-    // MARK: 字体的灰色
-    /// 字体的灰色
-    /// - Returns: 字体的灰色
-    static func JKTextGayColor() -> UIColor {
-        return color(r: 140, g: 140, b: 140, alpha: 1.0)
-    }
-}
-
-
-public extension UIColor {
+public extension LKEx where Base: UIColor {
     /// 颜色转图片,用于navigationbar的阴影
     /// - Returns: 图片
     func as1ptImage() -> UIImage {
@@ -325,12 +299,13 @@ public extension UIColor {
     /// 更改颜色的透明度
     /// - Returns: 新的颜色
     func changeAlpha(to newAlpha: CGFloat) -> UIColor {
-       var red:CGFloat   = 0.0
-       var green:CGFloat = 0.0
-       var blue:CGFloat  = 0.0
-       var alpha:CGFloat = 0.0
-       self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-       return UIColor(red: red, green: green, blue: blue, alpha: newAlpha)
+        var red:CGFloat   = 0.0
+        var green:CGFloat = 0.0
+        var blue:CGFloat  = 0.0
+        var alpha:CGFloat = 0.0
+        self.base.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        return UIColor(red: red, green: green, blue: blue, alpha: newAlpha)
    }
 }
+
 
