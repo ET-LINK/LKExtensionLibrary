@@ -380,6 +380,30 @@ public extension LKEx where Base: UIImage {
         let result = UIGraphicsGetImageFromCurrentImageContext()
         return result
     }
+    
+    
+    /// 合并两张图片
+    /// - Parameter other: 另一张图片
+    /// - Returns: 合并后的图片
+    func mergeImage(other: UIImage) -> UIImage {
+        let scale = UIScreen.main.scale
+        let width = self.base.size.width * scale
+        let height = self.base.size.height * scale
+        let otherHeight = other.size.height * scale * (self.base.size.width / other.size.width)
+        let resultSize = CGSize(width: width, height: height + otherHeight)
+        UIGraphicsBeginImageContext(resultSize)
+        
+        let oneRect = CGRect(x: 0, y: 0, width: width, height: otherHeight)
+        other.draw(in: oneRect)
+        
+        let twoRect = CGRect(x: 0, y: otherHeight, width: width, height: height)
+        self.base.draw(in: twoRect)
+        
+        let rtImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return rtImage
+        
+    }
 }
 
 fileprivate extension UIImage {
