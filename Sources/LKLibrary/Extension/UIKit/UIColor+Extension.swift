@@ -7,6 +7,8 @@
 
 import UIKit
 
+extension UIColor: LKExCompatible{}
+
 // MARK: - 一、构造器设置颜色
 public extension UIColor {
     
