@@ -75,15 +75,6 @@ public extension LKLanguage {
     }
 }
 
-/// 快捷的函数式获取本地化的资源结果
-///
-/// - Parameter key: 定义的资源的 Key
-/// - Parameter default: 找不到的情况下的默认值
-/// - Returns: key 对应的本地化结果
-public func lang(_ key: String, default: String? = nil) -> String {
-    return LKLanguage.value(for: key, default: `default`)
-}
-
 
 extension LKLanguage {
     fileprivate static func isSystemChineseSimple() -> Bool {
