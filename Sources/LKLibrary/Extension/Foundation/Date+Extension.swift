@@ -94,7 +94,7 @@ public extension LKEx where Base == Date {
     var weekdayStringFromDate: Int {
         var calendar = Calendar(identifier: .gregorian)
         let timeZone = TimeZone.current
-        calendar.timeZone = timeZone!
+        calendar.timeZone = timeZone
         let theComponents = calendar.dateComponents([.weekday], from: self.base as Date)
         return  theComponents.weekday! - 1
     }
@@ -124,7 +124,7 @@ public extension LKEx where Base == Date {
         //当前时间
         var calender = Calendar.current
         calender.locale = Locale.current
-        var comp = calender.dateComponents([.year, .month, .day, .weekday], from: self)
+        var comp = calender.dateComponents([.year, .month, .day, .weekday], from: self.base)
 
         //当前时间是几号、周几
         let currentDay = comp.day
