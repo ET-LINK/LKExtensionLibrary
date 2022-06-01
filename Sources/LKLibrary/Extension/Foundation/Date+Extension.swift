@@ -405,6 +405,10 @@ public extension LKEx where Base == Date {
         // 2.比较当前的日期和昨天的日期
         return Calendar.current.isDate(self.base, inSameDayAs: date)
     }
+    /// 上个月
+    var lastMonthDate: Date? {
+        return adding(month: -1)
+    }
     
     // MARK: 3.8、是否为前天
     /// 是否为前天
