@@ -701,13 +701,22 @@ public extension LKEx where Base: UIView {
     func effectViewWithAlpha(alpha: CGFloat = 1.0, size: CGSize? = nil, style: UIBlurEffect.Style = .light) {
         // 模糊视图的大小
         var visualEffectViewSize = CGSize(width: 0, height: 0)
+        var isAutolayout = false
         if let weakSize = size {
             visualEffectViewSize = weakSize
         } else {
-            visualEffectViewSize = self.size
+            //visualEffectViewSize = self.size
+            isAutolayout = true
         }
         let visualEffectView = UIVisualEffectView.ex.visualEffectView(size: visualEffectViewSize, alpha: alpha, style: style, isAddVibrancy: false)
         self.base.addSubview(visualEffectView)
+        if isAutolayout {
+            visualEffectView.topAnchor.constraint(equalTo: self.base.topAnchor).isActive = true
+            visualEffectView.trailingAnchor.constraint(equalTo: self.base.trailingAnchor).isActive = true
+            visualEffectView.bottomAnchor.constraint(equalTo: self.base.bottomAnchor).isActive = true
+            visualEffectView.leadingAnchor.constraint(equalTo: self.base.leadingAnchor).isActive = true
+        }
+            
     }
 }
 
