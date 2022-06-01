@@ -406,7 +406,7 @@ public extension LKEx where Base == Date {
         return Calendar.current.isDate(self.base, inSameDayAs: date)
     }
     /// 上个月
-    var lastMonthDate: Date? {
+    static var lastMonthDate: Date? {
         return adding(month: -1)
     }
     
