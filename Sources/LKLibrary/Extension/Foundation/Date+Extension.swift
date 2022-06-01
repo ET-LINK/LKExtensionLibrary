@@ -408,6 +408,17 @@ public extension LKEx where Base == Date {
         let selfComponents = calendar.dateComponents([.weekday,.month,.year], from: self.base as Date)
         return (selfComponents.year == nowComponents.year) && (selfComponents.month == nowComponents.month) && (selfComponents.weekday == nowComponents.weekday)
     }
+    
+    /// 是否为  同一年  同一月 同一周
+    /// - Returns: bool
+    func isSameWeek(date: Date) -> Bool {
+        let calendar = Calendar.current
+        // date
+        let dateComponents = calendar.dateComponents([.weekday, .month, .year], from: date)
+        // self
+        let selfComponents = calendar.dateComponents([.weekday,.month,.year], from: self.base as Date)
+        return (selfComponents.year == dateComponents.year) && (selfComponents.month == dateComponents.month) && (selfComponents.weekday == dateComponents.weekday)
+    }
 }
 
 // MARK: - 四、相对的时间变化
