@@ -407,7 +407,7 @@ public extension LKEx where Base == Date {
     }
     /// 上个月
     static var lastMonthDate: Date? {
-        return adding(month: -1)
+        return Calendar.current.date(byAdding: DateComponents(month:-1), to: Date())
     }
     
     // MARK: 3.8、是否为前天
@@ -451,13 +451,7 @@ public extension LKEx where Base == Date {
     private func adding(day: Int) -> Date? {
         return Calendar.current.date(byAdding: DateComponents(day:day), to: self.base)
     }
-    
-    /// 日期的加减操作
-    /// - Parameter day: 月数变化
-    /// - Returns: date
-    private func adding(month: Int) -> Date? {
-        return Calendar.current.date(byAdding: DateComponents(month:month), to: self.base)
-    }
+   
     
     /// 是否为  同一年  同一月 同一天
     /// - Parameter date: date
