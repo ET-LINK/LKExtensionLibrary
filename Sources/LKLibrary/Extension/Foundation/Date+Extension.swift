@@ -91,14 +91,76 @@ public extension LKEx where Base == Date {
     }
     
     // MARK: 1.12、从日期获取 星期(中文)
-    var weekdayStringFromDate: String {
-        let weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+    var weekdayStringFromDate: Int {
         var calendar = Calendar(identifier: .gregorian)
-        let timeZone = TimeZone(identifier: "Asia/Shanghai")
+        let timeZone = TimeZone.current
         calendar.timeZone = timeZone!
         let theComponents = calendar.dateComponents([.weekday], from: self.base as Date)
-        return  weekdays[theComponents.weekday! - 1]
+        return  theComponents.weekday! - 1
     }
+    
+    /// 当月第一天是星期几
+    static func monthStartFromWeek() ->Int {
+        //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
+        let calendar = Calendar.current
+        let components = calendar.dateComponents(Set<Calendar.Component>([.year, .month]), from: Date())
+        let startOfMonth = calendar.date(from: components)
+        let firstWeekDay = calendar.ordinality(of: .day, in: .weekOfMonth, for: startOfMonth!)
+        return firstWeekDay! - 1
+    }
+    
+    /// 本周开始日期
+    static func startOfThisWeek() -> Date {
+        let date = Date()
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents(
+            Set<Calendar.Component>([.yearForWeekOfYear, .weekOfYear]), from: date)
+        let startOfWeek = calendar.date(from: components)!
+        return startOfWeek
+    }
+    
+    /// 获取一周时间
+    func GetWeeksDate() -> [Date]? {
+        //当前时间
+        var calender = Calendar.current
+        calender.locale = Locale.current
+        var comp = calender.dateComponents([.year, .month, .day, .weekday], from: self)
+
+        //当前时间是几号、周几
+        let currentDay = comp.day
+        let weeKDay = comp.weekday
+
+        //如果获取当前时间的日期和周几失败，返回nil
+        guard let day = currentDay, let week = weeKDay else {
+            return nil
+        }
+
+        //由于1代表的是周日，因此计算出准确的周几
+        var currentWeekDay = 0
+        if week == 1 {
+            currentWeekDay = 1
+        } else {
+            currentWeekDay = week
+        }
+
+        //1 ... 7表示周一到周日
+        //进行遍历和currentWeekDay进行比较，计算出之间的差值，即为当前日期和一周时间日期的差值，即可计算出一周时间内准备的日期
+        var dates: [Date] = []
+        for index in 1 ... 7 {
+            let diff = index - currentWeekDay
+            comp.day = day + diff
+            let date = calender.date(from: comp)
+        
+            //由于上述方法返回的Date为可选类型，要进行判空处理
+            if let _ = date {
+                dates.append(date!)
+            }
+        }
+
+        //返回时间数组
+        return dates
+    }
+
     
     // MARK: 1.13、从日期获取 月(英文)
     /// 从日期获取 当前地区的月(英文)
@@ -384,6 +446,13 @@ public extension LKEx where Base == Date {
     /// - Returns: date
     private func adding(day: Int) -> Date? {
         return Calendar.current.date(byAdding: DateComponents(day:day), to: self.base)
+    }
+    
+    /// 日期的加减操作
+    /// - Parameter day: 月数变化
+    /// - Returns: date
+    private func adding(month: Int) -> Date? {
+        return Calendar.current.date(byAdding: DateComponents(month:month), to: self.base)
     }
     
     /// 是否为  同一年  同一月 同一天
