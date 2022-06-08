@@ -38,7 +38,7 @@ public protocol LKBuilderField: Hashable, CustomStringConvertible {
     func validate() throws  // Put any validation logic for this field here.  Any comparison logic goes in Builder.compare()
 }
 
-extension LKBuilderField: Equatable {
+extension LKBuilderField {
     var fieldName: String {
         return String(self.hashValue)
     }
@@ -47,9 +47,6 @@ extension LKBuilderField: Equatable {
         hasher.combine(fieldName)
     }
     
-    static func == (lhs: LKBuilderField, rhs: LKBuilderField) -> Bool {
-        return lhs.hashValue == rhs.hashValue
-    }
 }
 
 /**
