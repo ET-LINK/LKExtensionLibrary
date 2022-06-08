@@ -43,10 +43,11 @@ extension LKBuilderField {
         return String(self.hashValue)
     }
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(fieldName)
+    var description: String {
+        let a = String(describing: type(of: self))
+        let b = self.fieldName
+        return "\(a).\(b)"
     }
-    
 }
 
 /**
