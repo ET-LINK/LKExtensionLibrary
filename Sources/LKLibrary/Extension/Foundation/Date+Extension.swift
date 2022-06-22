@@ -120,7 +120,7 @@ public extension LKEx where Base == Date {
     }
     
     /// 获取一周时间
-    func GetWeeksDate() -> [Date]? {
+    func getWeeksDate() -> [Date]? {
         //当前时间
         var calender = Calendar.current
         calender.locale = Locale.current
@@ -434,8 +434,14 @@ public extension LKEx where Base == Date {
     // MARK: 3.10、两个date是否为同一天
     /// 是否为  同一年  同一月 同一天
     /// - Returns: bool
-    func isSameDay(date: Date) -> Bool {
-        return Calendar.current.isDate(self.base, inSameDayAs: date)
+    func isSameDay(date: Date, utc: Bool = false) -> Bool {
+        let calendar = Calendar.current
+        if utc {
+            calendar.timeZone = .current
+        } else {
+            calendar.timeZone = TimeZone(identifier: "UTC")!
+        }
+        return calendar.isDate(self.base, inSameDayAs: date)
     }
     
     // MARK: 3.11、当前日期是不是润年
@@ -456,7 +462,7 @@ public extension LKEx where Base == Date {
     /// 是否为  同一年  同一月 同一天
     /// - Parameter date: date
     /// - Returns: 返回bool
-    private func isSameYeaerMountDay(_ date: Date) -> Bool {
+    private func isSameYearMountDay(_ date: Date) -> Bool {
         let com = Calendar.current.dateComponents([.year, .month, .day], from: self.base)
         let comToday = Calendar.current.dateComponents([.year, .month, .day], from: date)
         return (com.day == comToday.day &&
@@ -469,6 +475,7 @@ public extension LKEx where Base == Date {
     /// - Returns: 是否为本周
     var isThisWeek: Bool {
         let calendar = Calendar.current
+        calendar.timeZone = .current
         // 当前时间
         let nowComponents = calendar.dateComponents([.weekday, .month, .year], from: Date())
         // self
@@ -478,8 +485,14 @@ public extension LKEx where Base == Date {
     
     /// 是否为  同一年  同一月 同一周
     /// - Returns: bool
-    func isSameWeek(date: Date) -> Bool {
+    func isSameWeek(date: Date, utc: Bool = false) -> Bool {
         let calendar = Calendar.current
+        if utc {
+            calendar.timeZone = .current
+        } else {
+            calendar.timeZone = TimeZone(identifier: "UTC")!
+        }
+        
         // date
         let dateComponents = calendar.dateComponents([.weekday, .month, .year], from: date)
         // self
