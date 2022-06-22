@@ -434,13 +434,8 @@ public extension LKEx where Base == Date {
     // MARK: 3.10、两个date是否为同一天
     /// 是否为  同一年  同一月 同一天
     /// - Returns: bool
-    func isSameDay(date: Date, utc: Bool = false) -> Bool {
-        var calendar = Calendar.current
-        if utc {
-            calendar.timeZone = .current
-        } else {
-            calendar.timeZone = TimeZone(identifier: "UTC")!
-        }
+    func isSameDay(date: Date) -> Bool {
+        let calendar = Calendar.current
         return calendar.isDate(self.base, inSameDayAs: date)
     }
     
@@ -484,14 +479,8 @@ public extension LKEx where Base == Date {
     
     /// 是否为  同一年  同一月 同一周
     /// - Returns: bool
-    func isSameWeek(date: Date, utc: Bool = false) -> Bool {
-        var calendar = Calendar.current
-        if utc {
-            calendar.timeZone = .current
-        } else {
-            calendar.timeZone = TimeZone(identifier: "UTC")!
-        }
-        
+    func isSameWeek(date: Date) -> Bool {
+        let calendar = Calendar.current
         // date
         let dateComponents = calendar.dateComponents([.weekday, .month, .year], from: date)
         // self
