@@ -471,10 +471,10 @@ public extension LKEx where Base == Date {
     var isThisWeek: Bool {
         let calendar = Calendar.current
         // 当前时间
-        let nowComponents = calendar.dateComponents([.weekday, .month, .year], from: Date())
+        let nowComponents = calendar.dateComponents([.weekOfYear, .year], from: Date())
         // self
-        let selfComponents = calendar.dateComponents([.weekday,.month,.year], from: self.base as Date)
-        return (selfComponents.year == nowComponents.year) && (selfComponents.month == nowComponents.month) && (selfComponents.weekday == nowComponents.weekday)
+        let selfComponents = calendar.dateComponents([.weekOfYear,.year], from: self.base as Date)
+        return (selfComponents.year == nowComponents.year) && (selfComponents.weekOfYear == nowComponents.weekOfYear)
     }
     
     /// 是否为  同一年  同一月 同一周
@@ -482,10 +482,10 @@ public extension LKEx where Base == Date {
     func isSameWeek(date: Date) -> Bool {
         let calendar = Calendar.current
         // date
-        let dateComponents = calendar.dateComponents([.weekday, .month, .year], from: date)
+        let dateComponents = calendar.dateComponents([.weekOfYear, .year], from: date)
         // self
-        let selfComponents = calendar.dateComponents([.weekday,.month,.year], from: self.base as Date)
-        return (selfComponents.year == dateComponents.year) && (selfComponents.month == dateComponents.month) && (selfComponents.weekday == dateComponents.weekday)
+        let selfComponents = calendar.dateComponents([.weekOfYear, .year], from: self.base as Date)
+        return (selfComponents.year == nowComponents.year) && (selfComponents.weekOfYear == nowComponents.weekOfYear)
     }
 }
 
