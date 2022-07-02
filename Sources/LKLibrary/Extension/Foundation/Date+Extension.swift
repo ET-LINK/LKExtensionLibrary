@@ -485,7 +485,7 @@ public extension LKEx where Base == Date {
         let dateComponents = calendar.dateComponents([.weekOfYear, .year], from: date)
         // self
         let selfComponents = calendar.dateComponents([.weekOfYear, .year], from: self.base as Date)
-        return (selfComponents.year == nowComponents.year) && (selfComponents.weekOfYear == nowComponents.weekOfYear)
+        return (selfComponents.year == dateComponents.year) && (selfComponents.weekOfYear == dateComponents.weekOfYear)
     }
 }
 
