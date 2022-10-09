@@ -910,6 +910,18 @@ public extension LKEx where Base: UIView {
         return viewImage
     }
     
+    // MARK: 7.3.1、将 View 转换成图片
+    /// 将 View 转换成图片
+    /// - Returns: 图片
+    func toImageWithHierarchy() -> UIImage? {
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(self.base.frame.size, false, scale)
+        self.base.drawHierarchy(in: self.base.bounds, afterScreenUpdates: true)
+        let viewImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return viewImage
+    }
+    
     // MARK: 7.4、添加点击事件
     /// 添加点击事件
     /// - Parameters:
