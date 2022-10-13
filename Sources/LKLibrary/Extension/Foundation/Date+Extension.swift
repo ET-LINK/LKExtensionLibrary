@@ -86,7 +86,7 @@ public extension LKEx where Base == Date {
     /// 从日期获取 星期
     var weekday: String {
         jk_formatter.dateFormat = "EEEE"
-        jk_formatter.timeZone = TimeZone.autoupdatingCurrent
+        
         return jk_formatter.string(from: self.base)
     }
     
@@ -166,7 +166,7 @@ public extension LKEx where Base == Date {
     /// 从日期获取 当前地区的月(英文)
     var monthAsString: String {
         jk_formatter.dateFormat = "MMMM"
-        jk_formatter.timeZone = TimeZone.autoupdatingCurrent
+        
         return jk_formatter.string(from: self.base)
     }
 }
@@ -198,7 +198,7 @@ public extension LKEx where Base == Date {
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
         } else {
-            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
+            
         }
         // 按照dateFormat把Date转化为String
         return jk_formatter.string(from: date)
@@ -240,7 +240,7 @@ public extension LKEx where Base == Date {
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
         } else {
-            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
+            
         }
         jk_formatter.dateFormat = formatter
         return jk_formatter.string(from: self.base)
@@ -258,7 +258,7 @@ public extension LKEx where Base == Date {
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
         } else {
-            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
+            
         }
         guard let date = jk_formatter.date(from: timesString) else {
             #if DEBUG
@@ -284,7 +284,7 @@ public extension LKEx where Base == Date {
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
         } else {
-            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
+            
         }
         guard let date = jk_formatter.date(from: timesString) else {
             #if DEBUG
