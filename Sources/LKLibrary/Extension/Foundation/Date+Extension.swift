@@ -87,7 +87,6 @@ public extension LKEx where Base == Date {
     var weekday: String {
         jk_formatter.dateFormat = "EEEE"
         jk_formatter.timeZone = TimeZone.autoupdatingCurrent
-        jk_formatter.locale = .current
         return jk_formatter.string(from: self.base)
     }
     
@@ -168,7 +167,6 @@ public extension LKEx where Base == Date {
     var monthAsString: String {
         jk_formatter.dateFormat = "MMMM"
         jk_formatter.timeZone = TimeZone.autoupdatingCurrent
-        jk_formatter.locale = .current
         return jk_formatter.string(from: self.base)
     }
 }
@@ -199,8 +197,9 @@ public extension LKEx where Base == Date {
         jk_formatter.dateFormat = format
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
+        } else {
+            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
         }
-        jk_formatter.locale = .current
         // 按照dateFormat把Date转化为String
         return jk_formatter.string(from: date)
     }
@@ -240,8 +239,9 @@ public extension LKEx where Base == Date {
         // let dateFormatter = DateFormatter()
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
+        } else {
+            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
         }
-        jk_formatter.locale = .current
         jk_formatter.dateFormat = formatter
         return jk_formatter.string(from: self.base)
     }
@@ -257,8 +257,9 @@ public extension LKEx where Base == Date {
         jk_formatter.dateFormat = formatter
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
+        } else {
+            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
         }
-        jk_formatter.locale = .current
         guard let date = jk_formatter.date(from: timesString) else {
             #if DEBUG
             fatalError("时间有问题")
@@ -282,8 +283,9 @@ public extension LKEx where Base == Date {
         jk_formatter.dateFormat = formatter
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
+        } else {
+            jk_formatter.timeZone = TimeZone.autoupdatingCurrent
         }
-        jk_formatter.locale = .current
         guard let date = jk_formatter.date(from: timesString) else {
             #if DEBUG
             fatalError("时间有问题")
