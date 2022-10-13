@@ -16,7 +16,7 @@ public extension LKEx where Base == Double {
     
     // MARK: 1.2、Double 四舍五入转 Int
     /// Double 四舍五入转 Int
-    var lroundToInt: Int { return lround(self.base) }
+    var lroundToInt: Int { return Int(ceil(self.base)) }
     
     // MARK: 1.3、转 CGFloat
     /// 转 CGFloat
