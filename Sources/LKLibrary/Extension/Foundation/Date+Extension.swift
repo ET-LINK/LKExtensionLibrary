@@ -198,7 +198,7 @@ public extension LKEx where Base == Date {
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
         } else {
-            
+            jk_formatter.timeZone = .autoupdatingCurrent
         }
         // 按照dateFormat把Date转化为String
         return jk_formatter.string(from: date)
@@ -240,7 +240,7 @@ public extension LKEx where Base == Date {
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
         } else {
-            
+            jk_formatter.timeZone = .autoupdatingCurrent
         }
         jk_formatter.dateFormat = formatter
         return jk_formatter.string(from: self.base)
@@ -258,7 +258,7 @@ public extension LKEx where Base == Date {
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
         } else {
-            
+            jk_formatter.timeZone = .autoupdatingCurrent
         }
         guard let date = jk_formatter.date(from: timesString) else {
             #if DEBUG
@@ -284,7 +284,7 @@ public extension LKEx where Base == Date {
         if utcZone {
             jk_formatter.timeZone = TimeZone.init(abbreviation: "UTC")
         } else {
-            
+            jk_formatter.timeZone = .autoupdatingCurrent
         }
         guard let date = jk_formatter.date(from: timesString) else {
             #if DEBUG
