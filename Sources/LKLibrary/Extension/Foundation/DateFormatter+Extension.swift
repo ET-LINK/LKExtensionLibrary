@@ -12,6 +12,8 @@ import Foundation
  */
 public let jk_formatter = DateFormatter()
 
+public var jk_calendar = Calendar.current
+
 // MARK: - 一、基本扩展
 public extension DateFormatter {
 

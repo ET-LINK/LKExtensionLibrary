@@ -43,43 +43,43 @@ public extension LKEx where Base == Date {
     // MARK: 1.4、从 Date 获取年份
     /// 从 Date 获取年份
     var year: Int {
-        return Calendar.current.component(Calendar.Component.year, from: self.base)
+        return jk_calendar.component(Calendar.Component.year, from: self.base)
     }
     
     // MARK: 1.5、从 Date 获取月份
     /// 从 Date 获取年份
     var month: Int {
-        return Calendar.current.component(Calendar.Component.month, from: self.base)
+        return jk_calendar.component(Calendar.Component.month, from: self.base)
     }
     
     // MARK: 1.6、从 Date 获取 日
     /// 从 Date 获取 日
     var day: Int {
-        return Calendar.current.component(.day, from: self.base)
+        return jk_calendar.component(.day, from: self.base)
     }
     
     // MARK: 1.7、从 Date 获取 小时
     /// 从 Date 获取 日
     var hour: Int {
-        return Calendar.current.component(.hour, from: self.base)
+        return jk_calendar.component(.hour, from: self.base)
     }
     
     // MARK: 1.8、从 Date 获取 分钟
     /// 从 Date 获取 分钟
     var minute: Int {
-        return Calendar.current.component(.minute, from: self.base)
+        return jk_calendar.component(.minute, from: self.base)
     }
     
     // MARK: 1.9、从 Date 获取 秒
     /// 从 Date 获取 秒
     var second: Int {
-        return Calendar.current.component(.second, from: self.base)
+        return jk_calendar.component(.second, from: self.base)
     }
     
     // MARK: 1.10、从 Date 获取 毫秒
     /// 从 Date 获取 毫秒
     var nanosecond: Int {
-        return Calendar.current.component(.nanosecond, from: self.base)
+        return jk_calendar.component(.nanosecond, from: self.base)
     }
     
     // MARK: 1.11、从日期获取 星期(英文)
@@ -102,7 +102,7 @@ public extension LKEx where Base == Date {
     /// 当月第一天是星期几
     static func monthStartFromWeek() ->Int {
         //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
-        let calendar = Calendar.current
+        let calendar = jk_calendar
         let components = calendar.dateComponents(Set<Calendar.Component>([.year, .month]), from: Date())
         let startOfMonth = calendar.date(from: components)
         let firstWeekDay = calendar.ordinality(of: .day, in: .weekOfMonth, for: startOfMonth!)
@@ -112,7 +112,7 @@ public extension LKEx where Base == Date {
     /// 本周开始日期
     static func startOfThisWeek() -> Date {
         let date = Date()
-        let calendar = NSCalendar.current
+        let calendar = jk_calendar
         let components = calendar.dateComponents(
             Set<Calendar.Component>([.yearForWeekOfYear, .weekOfYear]), from: date)
         let startOfWeek = calendar.date(from: components)!
@@ -122,7 +122,7 @@ public extension LKEx where Base == Date {
     /// 获取一周时间
     func getWeeksDate() -> [Date]? {
         //当前时间
-        var calender = Calendar.current
+        var calender = jk_calendar
         calender.locale = Locale.current
         var comp = calender.dateComponents([.year, .month, .day, .weekday], from: self.base)
 
@@ -367,32 +367,32 @@ public extension LKEx where Base == Date {
     // MARK: 3.2、昨天的日期（相对于date的昨天日期）
     /// 昨天的日期
     static var yesterDayDate: Date? {
-        return Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())
+        return jk_calendar.date(byAdding: DateComponents(day: -1), to: Date())
     }
     
     // MARK: 3.3、明天的日期
     /// 明天的日期
     static var tomorrowDate: Date? {
-        return Calendar.current.date(byAdding: DateComponents(day: 1), to: Date())
+        return jk_calendar.date(byAdding: DateComponents(day: 1), to: Date())
     }
     
     // MARK: 3.4、前天的日期
     /// 前天的日期
     static var theDayBeforYesterDayDate: Date? {
-        return Calendar.current.date(byAdding: DateComponents(day: -2), to: Date())
+        return jk_calendar.date(byAdding: DateComponents(day: -2), to: Date())
     }
     
     // MARK: 3.5、后天的日期
     /// 后天的日期
     static var theDayAfterYesterDayDate: Date? {
-        return Calendar.current.date(byAdding: DateComponents(day: 2), to: Date())
+        return jk_calendar.date(byAdding: DateComponents(day: 2), to: Date())
     }
     
     // MARK: 3.6、是否为今天（只比较日期，不比较时分秒）
     /// 是否为今天（只比较日期，不比较时分秒）
     /// - Returns: bool
     var isToday: Bool {
-        return Calendar.current.isDate(self.base, inSameDayAs: Date())
+        return jk_calendar.isDate(self.base, inSameDayAs: Date())
     }
     
     // MARK: 3.7、是否为昨天
@@ -403,11 +403,11 @@ public extension LKEx where Base == Date {
             return false
         }
         // 2.比较当前的日期和昨天的日期
-        return Calendar.current.isDate(self.base, inSameDayAs: date)
+        return jk_calendar.isDate(self.base, inSameDayAs: date)
     }
     /// 上个月
     static var lastMonthDate: Date? {
-        return Calendar.current.date(byAdding: DateComponents(month:-1), to: Date())
+        return jk_calendar.date(byAdding: DateComponents(month:-1), to: Date())
     }
     
     // MARK: 3.8、是否为前天
@@ -418,13 +418,13 @@ public extension LKEx where Base == Date {
             return false
         }
         // 2.比较当前的日期和昨天的日期
-        return Calendar.current.isDate(self.base, inSameDayAs: date)
+        return jk_calendar.isDate(self.base, inSameDayAs: date)
     }
     
     // MARK: 3.9、是否为今年
     /// 是否为今年
     var isThisYear: Bool  {
-        let calendar = Calendar.current
+        let calendar = jk_calendar
         let nowCmps = calendar.dateComponents([.year], from: Date())
         let selfCmps = calendar.dateComponents([.year], from: self.base)
         let result = nowCmps.year == selfCmps.year
@@ -435,7 +435,7 @@ public extension LKEx where Base == Date {
     /// 是否为  同一年  同一月 同一天
     /// - Returns: bool
     func isSameDay(date: Date) -> Bool {
-        let calendar = Calendar.current
+        let calendar = jk_calendar
         return calendar.isDate(self.base, inSameDayAs: date)
     }
     
@@ -450,7 +450,7 @@ public extension LKEx where Base == Date {
     /// - Parameter day: 天数变化
     /// - Returns: date
     private func adding(day: Int) -> Date? {
-        return Calendar.current.date(byAdding: DateComponents(day:day), to: self.base)
+        return jk_calendar.date(byAdding: DateComponents(day:day), to: self.base)
     }
    
     
@@ -458,8 +458,8 @@ public extension LKEx where Base == Date {
     /// - Parameter date: date
     /// - Returns: 返回bool
     private func isSameYearMountDay(_ date: Date) -> Bool {
-        let com = Calendar.current.dateComponents([.year, .month, .day], from: self.base)
-        let comToday = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        let com = jk_calendar.dateComponents([.year, .month, .day], from: self.base)
+        let comToday = jk_calendar.dateComponents([.year, .month, .day], from: date)
         return (com.day == comToday.day &&
             com.month == comToday.month &&
             com.year == comToday.year )
@@ -469,7 +469,7 @@ public extension LKEx where Base == Date {
     /// 是否为本周
     /// - Returns: 是否为本周
     var isThisWeek: Bool {
-        let calendar = Calendar.current
+        let calendar = jk_calendar
         // 当前时间
         let nowComponents = calendar.dateComponents([.weekOfYear, .year], from: Date())
         // self
@@ -480,7 +480,7 @@ public extension LKEx where Base == Date {
     /// 是否为  同一年  同一月 同一周
     /// - Returns: bool
     func isSameWeek(date: Date) -> Bool {
-        let calendar = Calendar.current
+        let calendar = jk_calendar
         // date
         let dateComponents = calendar.dateComponents([.weekOfYear, .year], from: date)
         // self
@@ -538,7 +538,7 @@ public extension LKEx where Base == Date {
     ///   - unit: 对比的类型
     /// - Returns: 两个日期之间的数据
     func componentCompare(from date: Date, unit: Set<Calendar.Component> = [.year,.month,.day]) -> DateComponents {
-        let calendar = Calendar.current
+        let calendar = jk_calendar
         let component = calendar.dateComponents(unit, from: date, to: base)
         return component
     }
