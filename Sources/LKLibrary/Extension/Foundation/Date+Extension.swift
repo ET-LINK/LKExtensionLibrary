@@ -337,7 +337,7 @@ public extension LKEx where Base == Date {
         if minute > 0 {
             return String(format: "%02d:%02d", minute, second)
         }
-        return String(format: "%02d", second)
+        return String(format: "00:%02d", second)
     }
     
     // MARK: 2.7、Date 转 时间戳
