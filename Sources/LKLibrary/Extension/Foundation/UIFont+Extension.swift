@@ -155,6 +155,18 @@ public extension LKEx where Base: UIFont {
             return UIFont.boldSystemFont(ofSize: ofSize)
         }
     }
+    
+    static func rounded(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
+        let systemFont = UIFont.systemFont(ofSize: size, weight: weight)
+        let font: UIFont
+        
+        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
+            font = UIFont(descriptor: descriptor, size: size)
+        } else {
+            font = systemFont
+        }
+        return font
+    }
 }
 
 /// 选取字体
@@ -169,4 +181,6 @@ public extension LKEx where Base: UIFont  {
     func boldItalic() -> UIFont {
         return withTraits([.traitBold, .traitItalic])
     }
+
+
 }
