@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "LKLibrary",
-    platforms: [.iOS(.v13)],
+    platforms: [.iOS(.v15)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -22,6 +22,7 @@ let package = Package(
         .target(
             name: "LKLibrary",
             dependencies: []),
+        
         .testTarget(
             name: "LKLibraryTests",
             dependencies: ["LKLibrary"]),

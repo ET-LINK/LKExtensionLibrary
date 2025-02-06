@@ -259,6 +259,24 @@ public extension LKEx where Base: ExpressibleByStringLiteral {
         }
         return count
     }
+    
+    
+    func getURLNameAndExtension() -> (String, String)? {
+        if let url = URL(string: self.base as! String) {
+            // 获取文件名（不包含路径）
+            let fileName = url.lastPathComponent
+            
+            // 获取文件扩展名
+            let fileExtension = url.pathExtension
+            
+            print("文件名: \(fileName)")
+            print("扩展名: \(fileExtension)")
+            return (fileName, fileExtension)
+        } else {
+            print("无法解析文件路径")
+            return nil
+        }
+    }
 }
 
 // MARK: - 二、沙盒路径的获取
@@ -1711,8 +1729,6 @@ public extension LKEx where Base: ExpressibleByStringLiteral {
                             .joined()
         }
         return nil
-        
-        
 
     }
     
@@ -1999,5 +2015,26 @@ extension String {
         let start = index(startIndex, offsetBy: range.lowerBound)
         let end = index(start, offsetBy: range.upperBound - range.lowerBound)
         return String(self[start ..< end])
+    }
+}
+
+
+extension AttributedString {
+    public static func createBulleted(boldText: String, normalText: String) -> Self {
+        var result = AttributedString()
+        
+        // 构建带bullet point的粗体文本"• " +
+        var bulletedBoldText = AttributedString(boldText)
+        bulletedBoldText.font = .body.bold()
+        bulletedBoldText.foregroundColor = .primary
+        result.append(bulletedBoldText)
+        
+        // 构建普通文本
+        var attributedNormalText = AttributedString(normalText)
+        attributedNormalText.font = .body
+        attributedNormalText.foregroundColor = .primary
+        result.append(attributedNormalText)
+        
+        return result
     }
 }

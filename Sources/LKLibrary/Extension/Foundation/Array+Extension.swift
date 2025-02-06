@@ -241,3 +241,9 @@ extension Array where Element == UInt8 {
     }
 }
 
+extension Array {
+    public subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+

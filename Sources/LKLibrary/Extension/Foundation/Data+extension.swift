@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CryptoKit
+
 extension Data: LKExCompatible {}
 // MARK: - 一、基本的扩展
 public extension LKEx where Base == Data {
@@ -28,6 +30,10 @@ public extension LKEx where Base == Data {
         return [UInt8](self.base)
     }
     
+    var md5: String {
+        let digest = Insecure.MD5.hash(data: self.base)
+        return digest.map { String(format: "%02hhx", $0) }.joined()
+    }
     
     
 }

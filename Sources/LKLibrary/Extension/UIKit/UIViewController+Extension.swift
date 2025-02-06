@@ -45,6 +45,8 @@ public extension LKEx where Base: UIViewController {
             return nil
         }
         return top(rootVC: rootVC)
+        
+
     }
     
     // MARK: 1.4、获取顶部控制器(实例方法)
