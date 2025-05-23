@@ -7,25 +7,25 @@
 
 import Foundation
 
-public enum UsernameValidationError: Error, CustomStringConvertible {
+public enum UsernameValidationError: Error, LocalizedError {
     case invalidLength
     case invalidFirstCharacter
     case invalidLastCharacter
     case consecutiveSpecialCharacters
     case invalidCharacters([Character])
     
-    public var description: String {
+    public var errorDescription: String? {
         switch self {
         case .invalidLength:
-            return "Name must be between 2 and 50 characters long."
+            return String(localized: "Name must be between 2 and 50 characters long.")
         case .invalidFirstCharacter:
-            return "Name must start with a letter, number, emoji, apostrophe, or accented letter."
+            return String(localized: "Name must start with a letter, number, emoji, apostrophe, or accented letter.")
         case .invalidLastCharacter:
-            return "Name must end with a letter, number, emoji, apostrophe, or accented letter."
+            return String(localized: "Name must end with a letter, number, emoji, apostrophe, or accented letter.")
         case .consecutiveSpecialCharacters:
-            return "Name cannot contain consecutive special characters."
+            return String(localized: "Name cannot contain consecutive special characters.")
         case .invalidCharacters(let chars):
-            return "Name contains invalid characters: \(String(chars))"
+            return String(localized: "Name contains invalid characters: \(String(chars))")
         }
     }
 }

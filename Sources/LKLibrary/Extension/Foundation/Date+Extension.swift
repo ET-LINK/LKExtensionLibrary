@@ -355,6 +355,26 @@ public extension LKEx where Base == Date {
         let secondFromGMT: TimeInterval = TimeInterval(TimeZone.current.secondsFromGMT(for: self.base))
         return self.base.addingTimeInterval(secondFromGMT)
     }
+    
+    /// 将日期格式化为标准字符串格式
+    /// - Parameters:
+    ///   - style: 日期样式 (.short, .medium, .long, .full)
+    ///   - timeStyle: 时间样式 (.none, .short, .medium, .long, .full)，默认为.none
+    ///   - locale: 区域设置，默认为系统当前区域
+    ///   - isRelative: 是否使用相对日期格式化，默认为false
+    /// - Returns: 格式化后的日期字符串
+    func relativeFormat(
+                      style: DateFormatter.Style,
+                      timeStyle: DateFormatter.Style = .none,
+                      locale: Locale = .current,
+                      isRelative: Bool = false) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = style
+        formatter.timeStyle = timeStyle
+        formatter.locale = locale
+        formatter.doesRelativeDateFormatting = isRelative
+                          return formatter.string(from: self.base)
+    }
 }
 
 // MARK: - 三、前天、昨天、今天、明天、后天、是否同一年同一月同一天 的判断

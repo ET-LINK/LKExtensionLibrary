@@ -281,3 +281,86 @@ public extension LKEx where Base: NSAttributedString {
         return UIImage(named: imageName)!
     }
 }
+
+public extension NSAttributedString {
+    
+    /// 使用简化的Markdown风格标记创建富文本
+    /// - Parameters:
+    ///   - markdownString: 包含标记的字符串，使用**文本**表示粗体
+    ///   - normalFont: 常规文本使用的字体
+    ///   - boldFont: 粗体文本使用的字体
+    /// - Returns: 带有样式的NSAttributedString
+    static func withMarkdownStyle(
+        _ markdownString: String,
+        normalFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
+        boldFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .semibold)
+    ) -> NSAttributedString {
+        // 定义标记
+        let boldStartTag = "**"
+        let boldEndTag = "**"
+        
+        // 创建可变属性字符串
+        let attributedString = NSMutableAttributedString(string: markdownString)
+        
+        // 设置整个文本的基本字体
+        attributedString.addAttribute(.font, value: normalFont, range: NSRange(location: 0, length: attributedString.length))
+        
+        // 查找所有需要设置为粗体的部分
+        var searchRange = NSRange(location: 0, length: attributedString.length)
+        
+        while true {
+            // 查找开始标记
+            let startRange = (attributedString.string as NSString).range(of: boldStartTag, options: [], range: searchRange)
+            if startRange.location == NSNotFound {
+                break
+            }
+            
+            // 查找结束标记
+            let searchForEndRange = NSRange(location: startRange.location + startRange.length,
+                                           length: attributedString.length - (startRange.location + startRange.length))
+            let endRange = (attributedString.string as NSString).range(of: boldEndTag, options: [], range: searchForEndRange)
+            if endRange.location == NSNotFound {
+                break
+            }
+            
+            // 删除标记
+            attributedString.deleteCharacters(in: endRange)
+            attributedString.deleteCharacters(in: startRange)
+            
+            // 调整范围，考虑删除标记后的偏移
+            let boldTextRange = NSRange(location: startRange.location,
+                                       length: endRange.location - startRange.location - boldStartTag.count)
+            
+            // 应用粗体样式
+            attributedString.addAttribute(.font, value: boldFont, range: boldTextRange)
+            
+            // 更新搜索范围，继续查找下一个标记
+            searchRange = NSRange(location: boldTextRange.location + boldTextRange.length,
+                                 length: attributedString.length - (boldTextRange.location + boldTextRange.length))
+        }
+        
+        return attributedString
+    }
+}
+
+// 为AttributedString（SwiftUI）添加从NSAttributedString转换的便利初始化方法
+public extension AttributedString {
+    
+    /// 使用简化的Markdown风格标记创建AttributedString
+    /// - Parameters:
+    ///   - markdownString: 包含标记的字符串，使用**文本**表示粗体
+    ///   - normalFont: 常规文本使用的字体
+    ///   - boldFont: 粗体文本使用的字体
+    init(markdownStyle markdownString: String,
+         normalFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
+         boldFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .semibold)) {
+        
+        let attributedString = NSAttributedString.withMarkdownStyle(
+            markdownString,
+            normalFont: normalFont,
+            boldFont: boldFont
+        )
+        
+        self.init(attributedString)
+    }
+}

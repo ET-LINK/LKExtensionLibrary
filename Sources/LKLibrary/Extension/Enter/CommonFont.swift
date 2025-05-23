@@ -5,8 +5,6 @@
 //  Created by Enter M1 on 2024/5/21.
 //
 
-import Foundation
-import SwiftUI
 /*
  iOS 默认字体样式与大小对照表
 
@@ -35,6 +33,11 @@ import SwiftUI
  */
 
 
+import Foundation
+import SwiftUI
+import UIKit // 确保导入 UIKit
+
+// MARK: - SwiftUI Font Extension
 public extension Font {
     /// size 32
     public struct BigTitle {
@@ -54,7 +57,7 @@ public extension Font {
         public static let semibold = Font.system(size: 18, weight: .semibold, design: .default)
         public static let regular = Font.system(size: 18, weight: .regular, design: .default)
     }
-    
+
     /// size 16
     public struct Body {
         public static let bold = Font.system(size: 16, weight: .bold, design: .default)
@@ -67,48 +70,151 @@ public extension Font {
         public static let semibold = Font.system(size: 14, weight: .semibold, design: .default)
         public static let regular = Font.system(size: 14, weight: .regular, design: .default)
     }
-    
+
     /// size 12
     public struct Caption1 {
         public static let semibold = Font.system(size: 12, weight: .semibold, design: .default)
         public static let regular = Font.system(size: 12, weight: .regular, design: .default)
     }
-    
+
     /// size 10
     public struct Caption2 {
         public static let semibold = Font.system(size: 10, weight: .semibold, design: .default)
         public static let regular = Font.system(size: 10, weight: .regular, design: .default)
     }
-    
+
+    // --- Number Fonts (Rounded Design) ---
+    /// size 40, rounded
     public struct Number40 {
         public static let bold = Font.system(size: 40, weight: .bold, design: .rounded)
         public static let regular = Font.system(size: 40, weight: .regular, design: .rounded)
     }
+    /// size 32, rounded
     public struct Number32 {
         public static let bold = Font.system(size: 32, weight: .bold, design: .rounded)
         public static let regular = Font.system(size: 32, weight: .regular, design: .rounded)
     }
+    /// size 24, rounded
     public struct Number24 {
         public static let bold = Font.system(size: 24, weight: .bold, design: .rounded)
         public static let regular = Font.system(size: 24, weight: .regular, design: .rounded)
     }
+    /// size 20, rounded
     public struct Number20 {
         public static let bold = Font.system(size: 20, weight: .bold, design: .rounded)
         public static let regular = Font.system(size: 20, weight: .regular, design: .rounded)
     }
+    /// size 16, rounded
     public struct Number16 {
         public static let bold = Font.system(size: 16, weight: .bold, design: .rounded)
         public static let regular = Font.system(size: 16, weight: .regular, design: .rounded)
     }
+    /// size 14, rounded
     public struct Number14 {
         public static let bold = Font.system(size: 14, weight: .bold, design: .rounded)
         public static let regular = Font.system(size: 14, weight: .regular, design: .rounded)
     }
+    /// size 12, rounded
     public struct Number12 {
         public static let bold = Font.system(size: 12, weight: .bold, design: .rounded)
         public static let regular = Font.system(size: 12, weight: .regular, design: .rounded)
     }
+}
 
+
+// MARK: - UIKit UIFont Extension
+public extension UIFont {
+
+    // Helper for rounded system fonts
+    private static func roundedSystemFont(ofSize size: CGFloat, weight: UIFont.Weight) -> UIFont {
+        // Attempt to get the rounded font descriptor
+        guard let descriptor = UIFont.systemFont(ofSize: size, weight: weight).fontDescriptor.withDesign(.rounded) else {
+            // Fallback to non-rounded system font if rounded isn't available (shouldn't happen for standard system fonts)
+            return UIFont.systemFont(ofSize: size, weight: weight)
+        }
+        // Create the font with the rounded descriptor
+        return UIFont(descriptor: descriptor, size: size)
+    }
+
+    /// size 32
+    public struct BigTitle {
+        public static let bold = UIFont.systemFont(ofSize: 32, weight: .bold)
+        public static let semibold = UIFont.systemFont(ofSize: 32, weight: .semibold)
+        public static let regular = UIFont.systemFont(ofSize: 32, weight: .regular)
+    }
+    /// size 24
+    public struct TitleLv1 {
+        public static let bold = UIFont.systemFont(ofSize: 24, weight: .bold)
+        public static let semibold = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        public static let regular = UIFont.systemFont(ofSize: 24, weight: .regular)
+    }
+    /// size 18
+    public struct TitleLv2 {
+        public static let bold = UIFont.systemFont(ofSize: 18, weight: .bold)
+        public static let semibold = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        public static let regular = UIFont.systemFont(ofSize: 18, weight: .regular)
+    }
+
+    /// size 16
+    public struct Body {
+        public static let bold = UIFont.systemFont(ofSize: 16, weight: .bold)
+        public static let semibold = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        public static let regular = UIFont.systemFont(ofSize: 16, weight: .regular)
+    }
+    /// size 14
+    public struct Subhead {
+        public static let bold = UIFont.systemFont(ofSize: 14, weight: .bold)
+        public static let semibold = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        public static let regular = UIFont.systemFont(ofSize: 14, weight: .regular)
+    }
+
+    /// size 12
+    public struct Caption1 {
+        public static let semibold = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        public static let regular = UIFont.systemFont(ofSize: 12, weight: .regular)
+    }
+
+    /// size 10
+    public struct Caption2 {
+        public static let semibold = UIFont.systemFont(ofSize: 10, weight: .semibold)
+        public static let regular = UIFont.systemFont(ofSize: 10, weight: .regular)
+    }
+
+    /// size 40, rounded
+    public struct Number40 {
+        public static let bold = UIFont.roundedSystemFont(ofSize: 40, weight: .bold)
+        public static let regular = UIFont.roundedSystemFont(ofSize: 40, weight: .regular)
+    }
+    /// size 32, rounded
+    public struct Number32 {
+        public static let bold = UIFont.roundedSystemFont(ofSize: 32, weight: .bold)
+        public static let regular = UIFont.roundedSystemFont(ofSize: 32, weight: .regular)
+    }
+    /// size 24, rounded
+    public struct Number24 {
+        public static let bold = UIFont.roundedSystemFont(ofSize: 24, weight: .bold)
+        public static let regular = UIFont.roundedSystemFont(ofSize: 24, weight: .regular)
+    }
+    /// size 20, rounded
+    public struct Number20 {
+        public static let bold = UIFont.roundedSystemFont(ofSize: 20, weight: .bold)
+        public static let regular = UIFont.roundedSystemFont(ofSize: 20, weight: .regular)
+    }
+    /// size 16, rounded
+    public struct Number16 {
+        public static let bold = UIFont.roundedSystemFont(ofSize: 16, weight: .bold)
+        public static let regular = UIFont.roundedSystemFont(ofSize: 16, weight: .regular)
+    }
+    /// size 14, rounded
+    public struct Number14 {
+        public static let bold = UIFont.roundedSystemFont(ofSize: 14, weight: .bold)
+        public static let regular = UIFont.roundedSystemFont(ofSize: 14, weight: .regular)
+    }
+    /// size 12, rounded
+    public struct Number12 {
+        public static let bold = UIFont.roundedSystemFont(ofSize: 12, weight: .bold)
+        public static let regular = UIFont.roundedSystemFont(ofSize: 12, weight: .regular)
+    }
 }
 
 public extension Font {
