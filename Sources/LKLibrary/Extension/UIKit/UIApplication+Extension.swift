@@ -76,35 +76,6 @@ public extension LKEx where Base: UIApplication {
         }
     }
     
-    @available(iOS 10.0, *)
-    func addLocalUserNoti(trigger: AnyObject,
-                          content: UNMutableNotificationContent,
-                       identifier: String,
-                   notiCategories: AnyObject,
-                          repeats: Bool = true,
-                          handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
-        
-        var notiTrigger: UNNotificationTrigger?
-        if let date = trigger as? NSDate {
-            var interval = date.timeIntervalSince1970 - NSDate().timeIntervalSince1970
-            interval = interval < 0 ? 1 : interval
-            notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: repeats)
-        } else if let components = trigger as? DateComponents {
-            notiTrigger = UNCalendarNotificationTrigger(dateMatching: components as DateComponents, repeats: repeats)
-        } else if let region = trigger as? CLCircularRegion {
-            notiTrigger = UNLocationNotificationTrigger(region: region, repeats: repeats)
-        }
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: notiTrigger)
-        let center = UNUserNotificationCenter.current()
-        
-        center.add(request) { (error) in
-            if error == nil {
-                return
-            }
-            JKPrint("推送已添加成功")
-        }
-    }
-    
     // MARK: 1.8、app商店链接
     /// app商店链接
     @discardableResult
